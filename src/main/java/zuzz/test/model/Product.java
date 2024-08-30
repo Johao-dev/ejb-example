@@ -35,22 +35,28 @@ public class Product {
     @Digits(integer = 6, fraction = 2)
     private double price;
 
+    @Column(name = "avaialable")
+    @NotNull
+    private boolean available;
+    
     public Product() {
     }
 
-    public Product(String name, String description, int stock, double price) {
+    public Product(String name, String description, int stock, double price, boolean available) {
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
+        this.available = available;
     }
 
-    public Product(long id, String name, String description, int stock, double price) {
+    public Product(long id, String name, String description, int stock, double price, boolean available) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
+        this.available = available;
     }
 
     public long getId() {
@@ -91,6 +97,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override

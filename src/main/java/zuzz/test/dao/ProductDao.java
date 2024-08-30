@@ -4,7 +4,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Digits;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import zuzz.test.model.Product;
 
 @ApplicationScoped
@@ -18,9 +21,39 @@ public class ProductDao {
         em.persist(product);
     }
     
-    public List<Product> readAllProducts() {
-        return em.createQuery("SELECT p FROM Product p", Product.class)
+    public Map<Long, Product> readAllProducts() {
+        List<Product> products = em.createQuery("SELECT p FROM Product p", Product.class)
                 .getResultList();
+        
+        return products.stream()
+                   .collect(Collectors.toMap(Product::getId,product -> product));
+    }
+    
+    public Map<Long, Product> readAllAvailableProducts() {
+        List<Product> products = em.createQuery
+            ("SELECT p FROM Product p WHERE p.available = true", Product.class)
+                .getResultList();
+        
+        return products.stream()
+                .collect(Collectors.toMap(Product::getId, product -> product));
+    }
+    
+    public Map<Long, Product> readAllNotAvailableProducts() {
+        List<Product> products = em.createQuery
+            ("SELECT p FROM Product p WHERE p.available = false", Product.class)
+                .getResultList();
+        
+        return products.stream()
+                .collect(Collectors.toMap(Product::getId, product -> product));
+    }
+    
+    public Map<Long, Product> readAllLowStockProducts() {
+        List<Product> products = em.createQuery
+            ("SELECT p FROM Product p WHERE p.stock < 20", Product.class)
+                .getResultList();
+        
+        return products.stream()
+                .collect(Collectors.toMap(Product::getId, product -> product));
     }
     
     public Product readOneById(long id) {
@@ -42,8 +75,28 @@ public class ProductDao {
     @Transactional
     public void updateStock(long id, int newStock) {
         Product product = readOneById(id);
-        if(product != null)
+        if(product != null) {
+            product.setStock(newStock);
             em.merge(product);
+        }
+    }
+    
+    @Transactional
+    public void updatePrice(long id, @Digits(integer = 6, fraction = 2) double newPrice) {
+        Product product = readOneById(id);
+        if(product != null) {
+            product.setPrice(newPrice);
+            em.merge(product);
+        }
+    }
+    
+    @Transactional
+    public void updateAvailable(long id, boolean newAvailable) {
+        Product product = readOneById(id);
+        if(product != null && !product.isAvailable()) {
+            product.setAvailable(newAvailable);
+            em.merge(product);
+        }
     }
     
     @Transactional
