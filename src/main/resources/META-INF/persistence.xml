@@ -4,6 +4,7 @@
   <persistence-unit name="gestionInventarioPU" transaction-type="JTA">
       <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
       <jta-data-source>jdbc/gestorInventario</jta-data-source>
+      <class>zuzz.test.model.Product</class>
     <properties>
         <!-- Configuracion de hibernate -->
         <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
