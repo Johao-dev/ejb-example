@@ -2,6 +2,7 @@ package zuzz.test.ejb.interfaces;
 
 import jakarta.ejb.Remote;
 import jakarta.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.util.Map;
 import zuzz.test.model.Product;
 
@@ -26,7 +27,7 @@ public interface ProductServiceRemote {
     
     void updateStock(long id, int newStock);
     
-    void updatePrice(long id, @Digits(integer = 6, fraction = 2) double price);
+    void updatePrice(long id, @Digits(integer = 10, fraction = 2) BigDecimal price);
     
     void updateStateOfProduct(long id, boolean newState);
 }

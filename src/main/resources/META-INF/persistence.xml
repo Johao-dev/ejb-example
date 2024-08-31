@@ -3,7 +3,7 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="gestionInventarioPU" transaction-type="JTA">
       <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-      <jta-data-source>jdbc/gestorInventario</jta-data-source>
+      <jta-data-source>jdbc/gestorInvetario</jta-data-source>
       <class>zuzz.test.model.Product</class>
     <properties>
         <!-- Configuracion de hibernate -->
@@ -11,6 +11,7 @@
         <property name="hibernate.hbm2ddl.auto" value="update"/>
         <property name="hibernate.show_sql" value="true"/>
         <property name="hibernate.format_sql" value="true"/>
+        <property name="hibernate.transaction.jta.platform" value="org.hibernate.engine.transaction.jta.platform.internal.SunOneJtaPlatform"/>
     </properties>
   </persistence-unit>
 </persistence>

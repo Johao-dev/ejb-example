@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -82,7 +83,7 @@ public class ProductDao {
     }
     
     @Transactional
-    public void updatePrice(long id, @Digits(integer = 6, fraction = 2) double newPrice) {
+    public void updatePrice(long id, @Digits(integer = 10, fraction = 2) BigDecimal newPrice) {
         Product product = readOneById(id);
         if(product != null) {
             product.setPrice(newPrice);

@@ -25,6 +25,22 @@ public class ProductController {
     @EJB
     private ReportServiceRemote reportServiceBean;
     
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProducts() {
+        try {
+            Map<Long, Product> products = productServiceBean.getAllProducts();
+            return Response
+                    .ok(products)
+                    .build();
+        } catch(Exception ex) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(ex.getMessage())
+                    .build();
+        }
+    }
+    
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
@@ -21,7 +22,7 @@ public class Product {
     private long id;
     
     @Column(name = "name")
-    @Size(min = 20, max = 100)
+    @Size(min = 0, max = 100)
     private String name;
     
     @Column(name = "description")
@@ -31,9 +32,9 @@ public class Product {
     @Column(name = "stock")
     private int stock;
     
-    @Column(name = "price")
-    @Digits(integer = 6, fraction = 2)
-    private double price;
+    @Column(name = "price", precision = 10, scale = 2)
+    @Digits(integer = 10, fraction = 2)
+    private BigDecimal price;
 
     @Column(name = "avaialable")
     @NotNull
@@ -42,7 +43,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, int stock, double price, boolean available) {
+    public Product(String name, String description, int stock, BigDecimal price, boolean available) {
         this.name = name;
         this.description = description;
         this.stock = stock;
@@ -50,7 +51,7 @@ public class Product {
         this.available = available;
     }
 
-    public Product(long id, String name, String description, int stock, double price, boolean available) {
+    public Product(long id, String name, String description, int stock, BigDecimal price, boolean available) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -91,11 +92,11 @@ public class Product {
         this.stock = stock;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

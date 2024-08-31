@@ -2,6 +2,7 @@ package zuzz.test.ejb.impl;
 
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import java.math.BigDecimal;
 import java.util.Map;
 import zuzz.test.dao.ProductDao;
 import zuzz.test.ejb.interfaces.ProductServiceRemote;
@@ -59,7 +60,7 @@ public class ProductServiceBean implements ProductServiceRemote {
     }
 
     @Override
-    public void updatePrice(long id, double price) {
+    public void updatePrice(long id, BigDecimal price) {
         productDao.updatePrice(id, price);
     }
     
