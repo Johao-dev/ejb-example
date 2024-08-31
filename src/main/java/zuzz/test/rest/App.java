@@ -1,5 +1,10 @@
 package zuzz.test.rest;
 
-public class App {
+import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.core.Application;
+
+@ApplicationPath("/api")
+public class App extends Application {
+    
     
 }

@@ -44,8 +44,8 @@ public class ProductServiceBean implements ProductServiceRemote {
     }
 
     @Override
-    public void deleteProduct(long id) {
-        productDao.delete(id);
+    public boolean deleteProduct(long id) {
+        return productDao.delete(id);
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface ProductServiceRemote {
     
     void createNewProduct(Product product);
     
-    void deleteProduct(long id);
+    boolean deleteProduct(long id);
     
     void updateProduct(long id, Product productToUpdate);
     

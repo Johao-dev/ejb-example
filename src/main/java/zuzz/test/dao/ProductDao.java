@@ -100,9 +100,12 @@ public class ProductDao {
     }
     
     @Transactional
-    public void delete(long id) {
+    public boolean delete(long id) {
         Product deleteProduct = readOneById(id);
-        if(deleteProduct != null)
+        if(deleteProduct != null) {
             em.remove(deleteProduct);
+            return true;
+        }
+        return false;
     }
 }
